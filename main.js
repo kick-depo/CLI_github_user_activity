@@ -14,21 +14,29 @@ async function getUserActiviti() {
 
     let eventsActivity = []
     let count = 0
+    let url = ''
 
-    for (let i = 0; i < userActiviti.length; i++) {
-        // использовать events.length
+    for (let i = 0; i < events.length; i++) {
+        
         for (let j = 0; j < userActiviti.length; j++) {
-            if (userActiviti[i].type === events[i]) {
+            url = userActiviti[j].repo.name
+            if (userActiviti[j].type === events[i]) {
                 count++
-            }
-            eventsActivity.push({[events[i]]:count})
-            count = 0
+            } 
         }
+        if (count !== 0) {
+            eventsActivity.push([events[i], count, url])
+        }
+        
+        // eventsActivity.push({[events[i]]:count})
+        count = 0
     }
     return eventsActivity
 }
 
-// const output = getUserActiviti()
-getUserActiviti()
+getUserActiviti().then(data => console.log(data))
+
+
+
 
 
